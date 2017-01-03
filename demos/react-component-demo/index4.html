@@ -13,14 +13,25 @@
     constructor(...args) {
       super(...args);
       this.state = {
-        text: 'World'
+        text: 'World',
+        oldText: null
       };
     }
 
     handleClick() {
-      this.setState({
-        text: 'Clicked'
-      });
+      if (this.state.oldText == null) {
+        let d = new Date();
+        let t = this.state.text; // save the text
+        this.setState({
+          text: d.getFullYear() + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日',
+          oldText: t
+        });
+      } else {
+        this.setState({
+          text: this.state.oldText,
+          oldText: null
+        });
+      }
     }
 
     render() {

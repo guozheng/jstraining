@@ -25,11 +25,16 @@ describe('test index.html', function() {
       .click('h1')
       .wait(1000)
       .evaluate(function () {
-        return document.querySelector('h1').textContent;
+        return {
+          text: document.querySelector('h1').textContent,
+          color: document.querySelector("h1[style]").style.color
+        };
       })
       .end()
-      .then(function(text) {
-        expect(text).to.equal('Hello Clicked');
+      .then(function(result) {
+        console.log(result);
+        expect(result.text).to.equal('Hello Clicked');
+        expect(result.color).to.equal('red');
         done();
       })
   });
